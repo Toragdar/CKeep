@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="25dp"
+    app:strokeWidth="5dp"
+    app:strokeColor="@color/color_black">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@color/color_orange"
+        android:padding="10dp"
+        android:gravity="center_horizontal"
+        >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/itemIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/default_item_icon"
+            android:tint="@color/color_ivory"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/itemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/itemIcon"
+            app:layout_constraintTop_toTopOf="@id/itemIcon"
+            android:text="@string/default_item_name"
+            android:textColor="@color/color_ivory"
+            android:textSize="30sp"/>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/itemDataShowButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="@id/itemLoginData"
+            app:layout_constraintTop_toTopOf="@id/itemName"
+            app:layout_constraintBottom_toBottomOf="@id/itemName"
+            android:src="@drawable/data_show_button_icon"
+            android:tint="@color/color_ivory"
+            android:background="@color/color_transparent"
+            android:layout_marginRight="50dp"/>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/itemDeleteButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/delete_button_icon"
+            android:tint="@color/color_ivory"
+            android:background="@color/color_transparent"
+            android:layout_gravity="center"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/itemLoginText"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            app:layout_constraintTop_toBottomOf="@id/itemName"
+            app:layout_constraintLeft_toLeftOf="@id/itemName"
+            android:text="@string/item_login_text"
+            android:textColor="@color/color_ivory"
+            android:textSize="15sp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/itemLoginData"
+            android:layout_width="150dp"
+            android:layout_height="25dp"
+            app:layout_constraintTop_toBottomOf="@id/itemName"
+            app:layout_constraintLeft_toRightOf="@id/itemLoginText"
+            android:textColor="@color/color_ivory"
+            android:textSize="15sp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/itemLoginDataIsHide"
+            android:layout_width="150dp"
+            android:layout_height="25dp"
+            app:layout_constraintTop_toBottomOf="@id/itemName"
+            app:layout_constraintLeft_toRightOf="@id/itemLoginText"
+            android:text="@string/hiden_item_login"
+            android:textColor="@color/color_ivory"
+            android:textSize="15sp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/itemPasswordText"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            app:layout_constraintTop_toBottomOf="@id/itemLoginText"
+            app:layout_constraintLeft_toLeftOf="@id/itemLoginText"
+            android:text="@string/item_password_text"
+            android:textColor="@color/color_ivory"
+            android:textSize="15sp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/itemPasswordData"
+            android:layout_width="150dp"
+            android:layout_height="25dp"
+            app:layout_constraintTop_toBottomOf="@id/itemLoginData"
+            app:layout_constraintLeft_toRightOf="@id/itemPasswordText"
+            android:textColor="@color/color_ivory"
+            android:textSize="15sp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/itemPasswordDataIsHide"
+            android:layout_width="150dp"
+            android:layout_height="25dp"
+            app:layout_constraintTop_toBottomOf="@id/itemLoginData"
+            app:layout_constraintLeft_toRightOf="@id/itemPasswordText"
+            android:text="@string/hiden_item_password"
+            android:textColor="@color/color_ivory"
+            android:textSize="15sp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
+

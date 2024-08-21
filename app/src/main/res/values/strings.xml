@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CKeep</string>
+    <string name="default_item_name">Default Item</string>
+    <string name="hiden_item_login">*****</string>
+    <string name="hiden_item_password">*****</string>
+    <string name="item_login_text">Login:</string>
+    <string name="item_password_text">Password:</string>
+</resources>
