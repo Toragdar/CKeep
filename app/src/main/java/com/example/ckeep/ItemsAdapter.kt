@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ckeep.models.ItemModel
 import com.example.ckeep.databinding.MainItemBinding
 
 class ItemsAdapter(private var items: ArrayList<ItemModel>, private val itemClickListener: OnItemClickListener) : RecyclerView.Adapter<ItemsAdapter.ItemHolder>() {

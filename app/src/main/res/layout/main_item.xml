@@ -26,7 +26,6 @@
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/default_item_icon"
             android:tint="@color/color_ivory"
-            android:layout_marginEnd="10dp"
             android:layout_gravity="center"/>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -35,6 +34,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@id/itemIcon"
             app:layout_constraintTop_toTopOf="@id/itemIcon"
+            android:layout_marginStart="10dp"
             android:text="@string/default_item_name"
             android:textColor="@color/color_ivory"
             android:textSize="30sp"/>
