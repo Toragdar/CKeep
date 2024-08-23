@@ -10,8 +10,8 @@ class ItemViewModel(private val itemRepository: ItemRepository): ViewModel() {
 
     val items = itemRepository.items
 
-    fun startInsert(){
-        TODO()
+    fun startInsert(itemName: String, itemLogin: String, itemPassword: String){
+        insertItem(ItemModel(0, itemName, itemLogin, itemPassword))
     }
 
     fun startDelete(){
