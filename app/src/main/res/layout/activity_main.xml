@@ -15,4 +15,30 @@
        app:layout_constraintTop_toTopOf="parent"
        android:layout_margin="10dp"/>
 
+   <androidx.coordinatorlayout.widget.CoordinatorLayout
+       android:id="@+id/coordinatorLayoutFAB"
+       android:layout_width="match_parent"
+       android:layout_height="100dp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent">
+
+      <com.google.android.material.bottomappbar.BottomAppBar
+          android:id="@+id/bottomBarFAB"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:backgroundTint="@color/color_black"
+          app:fabAlignmentMode="center"
+          android:layout_gravity="bottom"/>
+
+      <com.google.android.material.floatingactionbutton.FloatingActionButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+         android:src="@drawable/add_button"
+         android:backgroundTint="@color/color_orange"
+         app:borderWidth="0dp"
+         app:layout_anchor="@id/bottomBarFAB"/>
+
+   </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
