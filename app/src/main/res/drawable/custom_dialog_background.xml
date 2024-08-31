@@ -1,0 +1,12 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Установка цвета фона диалога -->
+    <solid android:color="@color/teal_50" />
+
+    <!-- Установка скругленных углов -->
+    <corners android:radius="16dp" />
+
+    <!-- Установка рамки -->
+    <stroke
+        android:width="5dp"
+        android:color="@color/blue_gray_700" />
+</shape>

@@ -27,7 +27,6 @@ class ItemsAdapter(private var items: ArrayList<ItemModel>, private val itemClic
     class ItemHolder(private val binding: MainItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(itemModel: ItemModel, clickListener: OnItemClickListener) {
-            //binding.itemIcon.setImageResource(itemModel.itemIcon)
             binding.itemName.text = itemModel.name
             binding.itemLoginData.text = itemModel.login
             binding.itemPasswordData.text = itemModel.password
