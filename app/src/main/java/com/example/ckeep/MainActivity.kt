@@ -11,28 +11,36 @@ import com.example.ckeep.repositories.ItemRepository
 import com.example.ckeep.viewModels.ItemFactory
 import com.example.ckeep.viewModels.ItemViewModel
 
-class MainActivity : AppCompatActivity(), OnItemClickListener {
+//TODO НЕ обновляется RecyclerView после изменения БД, надо допилить метод удаления айтемов из БД
 
-    //TODO настроить сохранение данных в БД и подгрузку уже сохраненных данных
+class MainActivity : AppCompatActivity(), OnItemClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var itemsAdapter: ItemsAdapter
-    private lateinit var items: ArrayList<ItemModel>
+    private lateinit var viewModel: ItemViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
 
-        items = ArrayList()
+        val itemDao = Database.getInstance(this).itemDAO
+        val itemRepository = ItemRepository(itemDao)
+        val itemFactory = ItemFactory(itemRepository)
+        viewModel = ViewModelProvider(this, itemFactory).get(ItemViewModel::class.java)
 
         binding.itemCatalog.layoutManager = LinearLayoutManager(this)
-        itemsAdapter = ItemsAdapter(items, this)
+        itemsAdapter = ItemsAdapter(this)
         binding.itemCatalog.adapter = itemsAdapter
 
-        binding.addNewItemButton.setOnClickListener(){
+        viewModel.items.observe(this) { items ->
+            items?.let {
+                itemsAdapter.submitList(it)
+            }
+        }
+
+        binding.addNewItemButton.setOnClickListener {
             onAddNewItemButtonClick()
         }
     }
@@ -42,7 +50,7 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
     }
 
     override fun onDeleteButtonClick(itemModel: ItemModel) {
-        //TODO
+        viewModel.deleteItem(itemModel)
     }
 
     private fun onAddNewItemButtonClick(){

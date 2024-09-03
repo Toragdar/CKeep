@@ -4,11 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ckeep.models.ItemModel
 import com.example.ckeep.databinding.MainItemBinding
 
-class ItemsAdapter(private var items: ArrayList<ItemModel>, private val itemClickListener: OnItemClickListener) : RecyclerView.Adapter<ItemsAdapter.ItemHolder>() {
+class ItemsAdapter(private val itemClickListener: OnItemClickListener) :
+    ListAdapter<ItemModel, ItemsAdapter.ItemHolder>(ItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -16,12 +19,9 @@ class ItemsAdapter(private var items: ArrayList<ItemModel>, private val itemClic
         return ItemHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
-
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.bind(items[position], itemClickListener)
+        val item = getItem(position)
+        holder.bind(item, itemClickListener)
     }
 
     class ItemHolder(private val binding: MainItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -46,16 +46,14 @@ class ItemsAdapter(private var items: ArrayList<ItemModel>, private val itemClic
             }
         }
 
-        //Обработка нажатия кнопки скрывающей/показывающей логин и пароль
-        fun ShowItemData(){
-            if(binding.itemLoginData.isInvisible){
+        fun ShowItemData() {
+            if (binding.itemLoginData.isInvisible) {
                 binding.itemLoginData.visibility = View.VISIBLE
                 binding.itemPasswordData.visibility = View.VISIBLE
 
                 binding.itemLoginDataIsHide.visibility = View.INVISIBLE
                 binding.itemPasswordDataIsHide.visibility = View.INVISIBLE
-            }
-            else{
+            } else {
                 binding.itemLoginData.visibility = View.INVISIBLE
                 binding.itemPasswordData.visibility = View.INVISIBLE
 
@@ -64,4 +62,15 @@ class ItemsAdapter(private var items: ArrayList<ItemModel>, private val itemClic
             }
         }
     }
+
+    class ItemDiffCallback : DiffUtil.ItemCallback<ItemModel>() {
+        override fun areItemsTheSame(oldItem: ItemModel, newItem: ItemModel): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: ItemModel, newItem: ItemModel): Boolean {
+            return oldItem == newItem
+        }
+    }
 }
+

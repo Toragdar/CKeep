@@ -20,22 +20,18 @@ class AddItemDialog : DialogFragment() {
     private var _binding: AddItemDialogBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var itemRepository: ItemRepository
-    private lateinit var itemFactory: ItemFactory
     private lateinit var itemViewModel: ItemViewModel
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = AddItemDialogBinding.inflate(layoutInflater)
-
-        // ТЕСТ ПОДКЛЮЧЕНИЯ БД
-        val itemDao = Database.getInstance(requireContext()).itemDAO
-        itemRepository = ItemRepository(itemDao)
-        itemFactory = ItemFactory(itemRepository)
-        itemViewModel = ViewModelProvider(this, itemFactory).get(ItemViewModel::class.java)
-
         val dialog = Dialog(requireContext(), R.style.CustomDialog)
-        dialog.setContentView(binding.root) // Используем binding.root как корневой макет
+        dialog.setContentView(binding.root)
         dialog.setCancelable(false)
+
+        val itemDao = Database.getInstance(requireContext()).itemDAO
+        val itemRepository = ItemRepository(itemDao)
+        val itemFactory = ItemFactory(itemRepository)
+        itemViewModel = ViewModelProvider(this, itemFactory).get(ItemViewModel::class.java)
 
         return dialog
     }
@@ -43,22 +39,16 @@ class AddItemDialog : DialogFragment() {
     override fun onStart() {
         super.onStart()
 
-        Log.d("MyDialogFragment", "Dialog started")
-
         dialog?.window?.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
 
-        // Теперь обработчики будут работать правильно
         binding.saveButton.setOnClickListener {
-            Log.d("MyDialogFragment", "Save button clicked")
-            Toast.makeText(requireContext(), "New Account was saved", Toast.LENGTH_SHORT).show()
-            if(
-                binding.itemNameEditText.text.toString() != "" &&
-                binding.itemLoginEditText.text.toString() != "" &&
-                binding.itemPasswordEditText.text.toString() != ""
-            ){
+            if (binding.itemNameEditText.text.toString().isNotEmpty() &&
+                binding.itemLoginEditText.text.toString().isNotEmpty() &&
+                binding.itemPasswordEditText.text.toString().isNotEmpty()
+            ) {
                 itemViewModel.startInsert(
                     binding.itemNameEditText.text.toString(),
                     binding.itemLoginEditText.text.toString(),
@@ -71,7 +61,6 @@ class AddItemDialog : DialogFragment() {
         }
 
         binding.cancelButton.setOnClickListener {
-            Log.d("MyDialogFragment", "Cancel button clicked")
             dismiss()
         }
     }
@@ -81,3 +70,4 @@ class AddItemDialog : DialogFragment() {
         _binding = null
     }
 }
+
