@@ -13,15 +13,11 @@ import com.example.ckeep.viewModels.ItemViewModel
 
 class MainActivity : AppCompatActivity(), OnItemClickListener {
 
-    //TODO Настроить  вызов диалога, сохранение данных в БД и подгрузку уже сохраненных данных
+    //TODO настроить сохранение данных в БД и подгрузку уже сохраненных данных
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var itemsAdapter: ItemsAdapter
     private lateinit var items: ArrayList<ItemModel>
-
-    //private lateinit var itemRepository: ItemRepository
-    //private lateinit var itemFactory: ItemFactory
-    //private lateinit var itemViewModel: ItemViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,16 +26,15 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
 
         setContentView(binding.root)
 
-        //val itemDao = Database.getInstance(this).itemDAO
-        //itemRepository = ItemRepository(itemDao)
-        //itemFactory = ItemFactory(itemRepository)
-        //itemViewModel = ViewModelProvider(this, itemFactory).get(ItemViewModel::class.java)
-
         items = ArrayList()
 
         binding.itemCatalog.layoutManager = LinearLayoutManager(this)
         itemsAdapter = ItemsAdapter(items, this)
         binding.itemCatalog.adapter = itemsAdapter
+
+        binding.addNewItemButton.setOnClickListener(){
+            onAddNewItemButtonClick()
+        }
     }
 
     override fun onDataShowButtonClick(itemModel: ItemModel, holder: ItemsAdapter.ItemHolder) {
@@ -48,5 +43,10 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
 
     override fun onDeleteButtonClick(itemModel: ItemModel) {
         //TODO
+    }
+
+    private fun onAddNewItemButtonClick(){
+        val dialog = AddItemDialog()
+        dialog.show(supportFragmentManager, "MyDialogFragment")
     }
 }
