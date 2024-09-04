@@ -1,6 +1,7 @@
 package com.example.ckeep
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,7 +20,6 @@ class AddItemDialog : DialogFragment() {
 
     private var _binding: AddItemDialogBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var itemViewModel: ItemViewModel
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -54,7 +54,9 @@ class AddItemDialog : DialogFragment() {
                     binding.itemLoginEditText.text.toString(),
                     binding.itemPasswordEditText.text.toString()
                 )
+                Log.d("Dialog Fragment", "Start closing")
                 dismiss()
+                Log.d("Dialog Fragment", "Finish closing")
             } else {
                 Toast.makeText(requireContext(), "FILL ALL FIELDS", Toast.LENGTH_SHORT).show()
             }
@@ -65,9 +67,15 @@ class AddItemDialog : DialogFragment() {
         }
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        (activity as? MainActivity)?.refreshRecyclerView()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 }
+
 
