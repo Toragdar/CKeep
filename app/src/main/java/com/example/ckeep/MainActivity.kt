@@ -14,6 +14,12 @@ import com.example.ckeep.repositories.ItemRepository
 import com.example.ckeep.viewModels.ItemFactory
 import com.example.ckeep.viewModels.ItemViewModel
 
+//TODO 1. Добавить запрос ввода ключа при раскрытии данных. Подгружать данные только после ввода ключа.
+// Реализовать шифрование Логина и Пароля по ключу (во ViewModel)
+//TODO 2. Реализовать скрытие/раскрытие одновременно только одного элемента списка
+//TODO 3. Настроить тени под элементами списка
+//TODO 4. Создать стили
+
 class MainActivity : AppCompatActivity(), OnItemClickListener, AddItemDialog.OnDialogResultListener {
 
     private lateinit var binding: ActivityMainBinding
