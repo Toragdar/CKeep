@@ -79,11 +79,11 @@ class AddItemDialog : DialogFragment() {
                 binding.itemLoginEditText.text.toString(),
                 binding.itemPasswordEditText.text.toString()
             )
+            dismiss()
         }
         else {
             Toast.makeText(requireContext(), "FILL ALL FIELDS", Toast.LENGTH_SHORT).show()
         }
-        dismiss()
     }
 }
 

@@ -11,13 +11,17 @@
         android:id="@+id/itemNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_name_hint"/>
+        android:hint="@string/enter_name_hint"
+        android:textColorHint="@color/teal_100"
+        android:textColor="@color/teal_600"/>
 
     <EditText
         android:id="@+id/itemLoginEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/enter_login_hint"
+        android:textColorHint="@color/teal_100"
+        android:textColor="@color/teal_600"
         android:layout_marginTop="8dp" />
 
     <EditText
@@ -25,6 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/enter_password_hint"
+        android:textColorHint="@color/teal_100"
+        android:textColor="@color/teal_600"
         android:layout_marginTop="8dp" />
 
     <LinearLayout
