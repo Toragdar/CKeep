@@ -1,6 +1,5 @@
 package com.example.ckeep.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
@@ -20,6 +19,9 @@ interface ItemDAO {
 
     @Query("SELECT * FROM item_data_table")
     fun getAllItems(): LiveData<List<ItemModel>>
+
+    @Query("SELECT * FROM item_data_table ORDER BY LOWER(item_name) ASC")
+    fun getAllItemsSortedByName(): LiveData<List<ItemModel>>
 
     @Transaction
     suspend fun insertWithLog(item: ItemModel) {
