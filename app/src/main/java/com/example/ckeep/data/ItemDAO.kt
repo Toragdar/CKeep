@@ -23,8 +23,4 @@ interface ItemDAO {
     @Query("SELECT * FROM item_data_table ORDER BY LOWER(item_name) ASC")
     fun getAllItemsSortedByName(): LiveData<List<ItemModel>>
 
-    @Transaction
-    suspend fun insertWithLog(item: ItemModel) {
-        insertItem(item)
-    }
 }

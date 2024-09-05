@@ -13,6 +13,8 @@ import com.example.ckeep.databinding.MainItemBinding
 class ItemsAdapter(private val itemClickListener: OnItemClickListener) :
     ListAdapter<ItemModel, ItemsAdapter.ItemHolder>(ItemDiffCallback()) {
 
+    private var expandedPosition: Int = RecyclerView.NO_POSITION
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = MainItemBinding.inflate(layoutInflater, parent, false)
@@ -21,24 +23,25 @@ class ItemsAdapter(private val itemClickListener: OnItemClickListener) :
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, itemClickListener)
+        holder.bind(item, itemClickListener, position)
     }
 
-    class ItemHolder(private val binding: MainItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ItemHolder(private val binding: MainItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(itemModel: ItemModel, clickListener: OnItemClickListener) {
+        fun bind(itemModel: ItemModel, clickListener: OnItemClickListener, position: Int) {
             binding.itemName.text = itemModel.name
             binding.itemLoginData.text = itemModel.login
             binding.itemPasswordData.text = itemModel.password
 
-            binding.itemLoginData.visibility = View.INVISIBLE
-            binding.itemPasswordData.visibility = View.INVISIBLE
+            val isExpanded = position == expandedPosition
+            binding.itemLoginData.visibility = if (isExpanded) View.VISIBLE else View.INVISIBLE
+            binding.itemPasswordData.visibility = if (isExpanded) View.VISIBLE else View.INVISIBLE
 
-            binding.itemLoginDataIsHide.visibility = View.VISIBLE
-            binding.itemPasswordDataIsHide.visibility = View.VISIBLE
+            binding.itemLoginDataIsHide.visibility = if (isExpanded) View.INVISIBLE else View.VISIBLE
+            binding.itemPasswordDataIsHide.visibility = if (isExpanded) View.INVISIBLE else View.VISIBLE
 
             binding.itemDataShowButton.setOnClickListener {
-                clickListener.onDataShowButtonClick(itemModel, this)
+                toggleExpansion(position)
             }
 
             binding.itemDeleteButton.setOnClickListener {
@@ -46,20 +49,15 @@ class ItemsAdapter(private val itemClickListener: OnItemClickListener) :
             }
         }
 
-        fun ShowItemData() {
-            if (binding.itemLoginData.isInvisible) {
-                binding.itemLoginData.visibility = View.VISIBLE
-                binding.itemPasswordData.visibility = View.VISIBLE
-
-                binding.itemLoginDataIsHide.visibility = View.INVISIBLE
-                binding.itemPasswordDataIsHide.visibility = View.INVISIBLE
+        private fun toggleExpansion(position: Int) {
+            val previousExpandedPosition = expandedPosition
+            if (position == expandedPosition) {
+                expandedPosition = RecyclerView.NO_POSITION
             } else {
-                binding.itemLoginData.visibility = View.INVISIBLE
-                binding.itemPasswordData.visibility = View.INVISIBLE
-
-                binding.itemLoginDataIsHide.visibility = View.VISIBLE
-                binding.itemPasswordDataIsHide.visibility = View.VISIBLE
+                expandedPosition = position
             }
+            notifyItemChanged(previousExpandedPosition)
+            notifyItemChanged(expandedPosition)
         }
     }
 
@@ -73,4 +71,5 @@ class ItemsAdapter(private val itemClickListener: OnItemClickListener) :
         }
     }
 }
+
 

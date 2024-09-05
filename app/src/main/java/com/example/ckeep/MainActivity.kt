@@ -14,11 +14,8 @@ import com.example.ckeep.repositories.ItemRepository
 import com.example.ckeep.viewModels.ItemFactory
 import com.example.ckeep.viewModels.ItemViewModel
 
-//TODO 1. Добавить запрос ввода ключа при раскрытии данных. Подгружать данные только после ввода ключа.
-// Реализовать шифрование Логина и Пароля по ключу (во ViewModel)
-//TODO 2. Реализовать скрытие/раскрытие одновременно только одного элемента списка
-//TODO 3. Настроить тени под элементами списка
-//TODO 4. Создать стили
+//TODO 1. Добавить диалог подтверждения удаления айтема
+//TODO 2. Продумать как реализовывать шифрование и дешифрование данных. Как запрашивать ключ и тд
 
 class MainActivity : AppCompatActivity(), OnItemClickListener, AddItemDialog.OnDialogResultListener {
 
@@ -54,10 +51,7 @@ class MainActivity : AppCompatActivity(), OnItemClickListener, AddItemDialog.OnD
         binding.itemCatalog.layoutManager = LinearLayoutManager(this)
         itemsAdapter = ItemsAdapter(this)
         binding.itemCatalog.adapter = itemsAdapter
-    }
-
-    override fun onDataShowButtonClick(itemModel: ItemModel, holder: ItemsAdapter.ItemHolder) {
-        holder.ShowItemData()
+        binding.itemCatalog.itemAnimator = null
     }
 
     override fun onDeleteButtonClick(itemModel: ItemModel) {
