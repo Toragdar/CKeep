@@ -14,9 +14,7 @@ import com.example.ckeep.repositories.ItemRepository
 import com.example.ckeep.viewModels.ItemFactory
 import com.example.ckeep.viewModels.ItemViewModel
 
-//TODO НЕ обновляется RecyclerView после добавления нового айтема
-
-class MainActivity : AppCompatActivity(), OnItemClickListener {
+class MainActivity : AppCompatActivity(), OnItemClickListener, AddItemDialog.OnDialogResultListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var itemsAdapter: ItemsAdapter
@@ -66,9 +64,13 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
     }
 
     fun refreshRecyclerView() {
-        Log.d("MainActivity", "refreshRV")
         itemViewModel.items.observe(this, Observer { items ->
+            Log.d("MainActivity", "Observed items: ${items.size}")
             itemsAdapter.submitList(items)
         })
+    }
+
+    override fun onDialogResult(itemName: String, itemLogin: String, itemPassword: String) {
+        itemViewModel.startInsert(itemName, itemLogin, itemPassword)
     }
 }

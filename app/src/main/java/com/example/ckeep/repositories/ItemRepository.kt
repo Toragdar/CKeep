@@ -10,9 +10,7 @@ class ItemRepository(private val itemDAO: ItemDAO) {
     val items: LiveData<List<ItemModel>> = itemDAO.getAllItems()
 
     suspend fun insertItem(itemModel: ItemModel){
-        Log.d("Repository", "Start Insert new item")
         itemDAO.insertWithLog(itemModel)
-        Log.d("Repository", "Finish Insert new item")
     }
 
     suspend fun deleteItem(itemModel: ItemModel){

@@ -23,8 +23,6 @@ interface ItemDAO {
 
     @Transaction
     suspend fun insertWithLog(item: ItemModel) {
-        Log.d("ItemDao", "Inserting item: ${item.name}")
         insertItem(item)
-        Log.d("ItemDao", "Item inserted successfully: ${item.name}")
     }
 }
