@@ -14,10 +14,10 @@ import com.example.ckeep.repositories.ItemRepository
 import com.example.ckeep.viewModels.ItemFactory
 import com.example.ckeep.viewModels.ItemViewModel
 
-//TODO 1. Добавить диалог подтверждения удаления айтема
-//TODO 2. Продумать как реализовывать шифрование и дешифрование данных. Как запрашивать ключ и тд
+//TODO 1. Продумать как реализовывать шифрование и дешифрование данных. Как запрашивать ключ и тд
 
-class MainActivity : AppCompatActivity(), OnItemClickListener, AddItemDialog.OnDialogResultListener {
+class MainActivity : AppCompatActivity(), OnItemClickListener,
+    AddItemDialog.OnAddDialogResultListener, ConfirmDeleteDialog.ConfirmDeleteListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var itemsAdapter: ItemsAdapter
@@ -55,12 +55,11 @@ class MainActivity : AppCompatActivity(), OnItemClickListener, AddItemDialog.OnD
     }
 
     override fun onDeleteButtonClick(itemModel: ItemModel) {
-        itemViewModel.startDelete(itemModel)
+        showConfirmDeleteDialog(itemModel)
     }
 
     private fun onAddNewItemButtonClick(){
-        val dialog = AddItemDialog()
-        dialog.show(supportFragmentManager, "MyDialogFragment")
+        showAddItemDialog()
     }
 
     fun refreshRecyclerView() {
@@ -70,7 +69,21 @@ class MainActivity : AppCompatActivity(), OnItemClickListener, AddItemDialog.OnD
         })
     }
 
-    override fun onDialogResult(itemName: String, itemLogin: String, itemPassword: String) {
+    override fun onAddDialogResult(itemName: String, itemLogin: String, itemPassword: String) {
         itemViewModel.startInsert(itemName, itemLogin, itemPassword)
+    }
+
+    override fun onDeleteConfirmed(itemModel: ItemModel) {
+        itemViewModel.startDelete(itemModel)
+    }
+
+    private fun showAddItemDialog() {
+        val dialog = AddItemDialog()
+        dialog.show(supportFragmentManager, "MyDialogFragment")
+    }
+
+    private fun showConfirmDeleteDialog(itemModel: ItemModel) {
+        val dialog = ConfirmDeleteDialog(itemModel)
+        dialog.show(supportFragmentManager, "ConfirmDeleteDialog")
     }
 }

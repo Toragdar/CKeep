@@ -11,9 +11,21 @@ import com.example.ckeep.models.ItemModel
 import com.example.ckeep.databinding.MainItemBinding
 
 class ItemsAdapter(private val itemClickListener: OnItemClickListener) :
-    ListAdapter<ItemModel, ItemsAdapter.ItemHolder>(ItemDiffCallback()) {
+    ListAdapter<ItemModel, ItemsAdapter.ItemHolder>(DIFF_CALLBACK) {
 
-    private var expandedPosition: Int = RecyclerView.NO_POSITION
+    private var expandedItemId: Int = RecyclerView.NO_POSITION
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemModel>() {
+            override fun areItemsTheSame(oldItem: ItemModel, newItem: ItemModel): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: ItemModel, newItem: ItemModel): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -23,17 +35,17 @@ class ItemsAdapter(private val itemClickListener: OnItemClickListener) :
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, itemClickListener, position)
+        holder.bind(item, itemClickListener)
     }
 
     inner class ItemHolder(private val binding: MainItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(itemModel: ItemModel, clickListener: OnItemClickListener, position: Int) {
+        fun bind(itemModel: ItemModel, clickListener: OnItemClickListener) {
             binding.itemName.text = itemModel.name
             binding.itemLoginData.text = itemModel.login
             binding.itemPasswordData.text = itemModel.password
 
-            val isExpanded = position == expandedPosition
+            val isExpanded = itemModel.id == expandedItemId
             binding.itemLoginData.visibility = if (isExpanded) View.VISIBLE else View.INVISIBLE
             binding.itemPasswordData.visibility = if (isExpanded) View.VISIBLE else View.INVISIBLE
 
@@ -41,7 +53,7 @@ class ItemsAdapter(private val itemClickListener: OnItemClickListener) :
             binding.itemPasswordDataIsHide.visibility = if (isExpanded) View.INVISIBLE else View.VISIBLE
 
             binding.itemDataShowButton.setOnClickListener {
-                toggleExpansion(position)
+                toggleExpansion(itemModel.id)
             }
 
             binding.itemDeleteButton.setOnClickListener {
@@ -49,27 +61,21 @@ class ItemsAdapter(private val itemClickListener: OnItemClickListener) :
             }
         }
 
-        private fun toggleExpansion(position: Int) {
-            val previousExpandedPosition = expandedPosition
-            if (position == expandedPosition) {
-                expandedPosition = RecyclerView.NO_POSITION
+        private fun toggleExpansion(itemId: Int) {
+            val previousExpandedItemId = expandedItemId
+            if (itemId == expandedItemId) {
+                expandedItemId = RecyclerView.NO_POSITION
             } else {
-                expandedPosition = position
+                expandedItemId = itemId
             }
-            notifyItemChanged(previousExpandedPosition)
-            notifyItemChanged(expandedPosition)
-        }
-    }
+            val previousPosition = currentList.indexOfFirst { it.id == previousExpandedItemId }
+            val newPosition = currentList.indexOfFirst { it.id == expandedItemId }
 
-    class ItemDiffCallback : DiffUtil.ItemCallback<ItemModel>() {
-        override fun areItemsTheSame(oldItem: ItemModel, newItem: ItemModel): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: ItemModel, newItem: ItemModel): Boolean {
-            return oldItem == newItem
+            if (previousPosition >= 0) notifyItemChanged(previousPosition)
+            if (newPosition >= 0) notifyItemChanged(newPosition)
         }
     }
 }
+
 
 

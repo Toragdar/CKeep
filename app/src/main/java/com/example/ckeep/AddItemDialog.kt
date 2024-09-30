@@ -2,32 +2,22 @@ package com.example.ckeep
 
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.example.ckeep.data.Database
 import com.example.ckeep.databinding.AddItemDialogBinding
-import com.example.ckeep.repositories.ItemRepository
-import com.example.ckeep.viewModels.ItemFactory
-import com.example.ckeep.viewModels.ItemViewModel
 
 class AddItemDialog : DialogFragment() {
 
-    interface OnDialogResultListener {
-        fun onDialogResult(itemName: String, itemLogin: String, itemPassword: String)
+    interface OnAddDialogResultListener {
+        fun onAddDialogResult(itemName: String, itemLogin: String, itemPassword: String)
     }
 
     private var _binding: AddItemDialogBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var listener: OnDialogResultListener
+    private lateinit var listener: OnAddDialogResultListener
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         _binding = AddItemDialogBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext(), R.style.CustomDialog)
@@ -63,7 +53,7 @@ class AddItemDialog : DialogFragment() {
         super.onAttach(context)
 
         try {
-            listener = context as OnDialogResultListener
+            listener = context as OnAddDialogResultListener
         } catch (e: ClassCastException) {
             throw ClassCastException("$context must implement OnDialogResultListener")
         }
@@ -74,7 +64,7 @@ class AddItemDialog : DialogFragment() {
             binding.itemLoginEditText.text.toString().isNotEmpty() &&
             binding.itemPasswordEditText.text.toString().isNotEmpty()
         ) {
-            listener.onDialogResult(
+            listener.onAddDialogResult(
                 binding.itemNameEditText.text.toString(),
                 binding.itemLoginEditText.text.toString(),
                 binding.itemPasswordEditText.text.toString()
