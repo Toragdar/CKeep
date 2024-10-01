@@ -31,17 +31,31 @@
         android:textColor="@color/blue_gray_700"
         android:textAlignment="center"/>
 
-    <TextView
-        android:id="@+id/encryptionKeyTextView"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/blue_gray_700"
-        android:gravity="center"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginTop="16dp"
-        android:textAlignment="center"
-        android:background="@drawable/textview_border"/>
+        android:background="@drawable/textview_border">
+
+        <TextView
+            android:id="@+id/encryptionKeyTextView"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/blue_gray_700"
+            android:gravity="center"/>
+
+        <ImageButton
+            android:id="@+id/backspaceButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/backspace_button"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_gravity="center"
+            app:tint="@color/blue_gray_700"/>
+    </LinearLayout>
 
     <GridLayout
         android:layout_width="wrap_content"

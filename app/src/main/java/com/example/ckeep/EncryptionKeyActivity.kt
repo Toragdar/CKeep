@@ -49,7 +49,6 @@ class EncryptionKeyActivity : AppCompatActivity() {
 
         binding.confirmButton.setOnClickListener {
             if (encryptionKey.length == 4) {
-                // Переход к MainActivity
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("ENCRYPTION_KEY", encryptionKey)
                 startActivity(intent)
@@ -57,10 +56,17 @@ class EncryptionKeyActivity : AppCompatActivity() {
             }
         }
 
+        binding.backspaceButton.setOnClickListener {
+            if (encryptionKey.isNotEmpty()) {
+                encryptionKey = encryptionKey.dropLast(1)
+                binding.encryptionKeyTextView.text = encryptionKey
+            }
+        }
+
         // Задержка скрытия Splash Screen
         Handler(Looper.getMainLooper()).postDelayed({
             splashScreen.setKeepOnScreenCondition{false}
-        }, 2000)
+        }, 200)
     }
 }
 
