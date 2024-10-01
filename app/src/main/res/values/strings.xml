@@ -14,4 +14,6 @@
     <string name="yes_button_text">Yes</string>
     <string name="no_button_text">No</string>
     <string name="delete_dialog_text">Delete this Account?</string>
+    <string name="pinCodeHeaderText">Please, enter encryption key</string>
+    <string name="pinCodeHintText">This encryption key is used to encrypt and decrypt data, please do not forget it</string>
 </resources>

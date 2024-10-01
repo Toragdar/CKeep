@@ -4,5 +4,13 @@
         <item name="android:statusBarColor">@color/teal_400</item>
     </style>
 
-    <style name="Theme.CKeep" parent="Base.Theme.CKeep" />
+    <style name="Theme.CKeep" parent="Base.Theme.CKeep">
+
+    </style>
+
+    <style name="SplashTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/teal_50</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ckeep_launcher_round</item>
+        <item name="postSplashScreenTheme">@style/Theme.CKeep</item>
+    </style>
 </resources>

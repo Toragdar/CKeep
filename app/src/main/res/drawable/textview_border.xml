@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- цвет фона -->
+    <solid android:color="@android:color/transparent"/>
+
+    <!-- рамка -->
+    <stroke
+        android:width="5dp"
+        android:color="@color/blue_gray_700" />
+
+    <!-- Скругление углов рамки -->
+    <corners android:radius="5dp"/>
+
+    <!-- Внутренние отступы от рамки до текста -->
+    <padding
+        android:left="8dp"
+        android:right="8dp"
+        android:top="4dp"
+        android:bottom="4dp" />
+</shape>

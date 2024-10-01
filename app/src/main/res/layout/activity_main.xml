@@ -21,7 +21,8 @@
        android:textAllCaps="true"
        android:textStyle="bold"
        android:background="@color/teal_400"
-       android:textColor="@color/teal_50"/>
+       android:textColor="@color/teal_50"
+       android:textAlignment="center"/>
 
    <FrameLayout
        android:id="@+id/itemCatalogLayout"

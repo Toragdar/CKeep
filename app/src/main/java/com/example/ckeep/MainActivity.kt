@@ -14,7 +14,7 @@ import com.example.ckeep.repositories.ItemRepository
 import com.example.ckeep.viewModels.ItemFactory
 import com.example.ckeep.viewModels.ItemViewModel
 
-//TODO 1. Продумать как реализовывать шифрование и дешифрование данных. Как запрашивать ключ и тд
+//TODO добавить кнопку удаления введенного значения в поле ключа
 
 class MainActivity : AppCompatActivity(), OnItemClickListener,
     AddItemDialog.OnAddDialogResultListener, ConfirmDeleteDialog.ConfirmDeleteListener {
@@ -25,12 +25,15 @@ class MainActivity : AppCompatActivity(), OnItemClickListener,
     private lateinit var itemDao: ItemDAO
     private lateinit var itemRepository: ItemRepository
     private lateinit var itemFactory: ItemFactory
+    private lateinit var encryptionKey: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        encryptionKey = intent.getStringExtra("ENCRYPTION_KEY").toString()
 
         initDao()
         initRecyclerView()
@@ -63,14 +66,14 @@ class MainActivity : AppCompatActivity(), OnItemClickListener,
     }
 
     fun refreshRecyclerView() {
-        itemViewModel.items.observe(this, Observer { items ->
-            Log.d("MainActivity", "Observed items: ${items.size}")
-            itemsAdapter.submitList(items)
-        })
+        itemViewModel.getDecryptedItems(encryptionKey).observe(this) { decryptedItems ->
+            Log.d("MainActivity", "Observed items: ${decryptedItems.size}")
+            itemsAdapter.submitList(decryptedItems)
+        }
     }
 
     override fun onAddDialogResult(itemName: String, itemLogin: String, itemPassword: String) {
-        itemViewModel.startInsert(itemName, itemLogin, itemPassword)
+        itemViewModel.startInsert(itemName, itemLogin, itemPassword, encryptionKey)
     }
 
     override fun onDeleteConfirmed(itemModel: ItemModel) {
