@@ -15,6 +15,7 @@
         android:text="@string/delete_dialog_text"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="@color/blue_gray_700"
         android:gravity="center"
         android:paddingBottom="16dp"/>
 

@@ -14,7 +14,10 @@ import com.example.ckeep.repositories.ItemRepository
 import com.example.ckeep.viewModels.ItemFactory
 import com.example.ckeep.viewModels.ItemViewModel
 
-//TODO добавить кнопку удаления введенного значения в поле ключа
+//TODO Добавить вопросики подсказки
+//TODO возможность смены тем
+//TODO создать и настроить нормально стили и темы
+
 
 class MainActivity : AppCompatActivity(), OnItemClickListener,
     AddItemDialog.OnAddDialogResultListener, ConfirmDeleteDialog.ConfirmDeleteListener {
